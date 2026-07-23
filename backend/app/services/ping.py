@@ -8,7 +8,7 @@ async def check_url(url: str):
         async with httpx.AsyncClient(timeout=10) as client:
             response = await client.get(url)
 
-        elapsed = (time.perf_counter() - start) * 100
+        elapsed = (time.perf_counter() - start) * 1000
         return {
             "status_code": response.status_code,
             "response_time_ms": round(elapsed),
