@@ -11,7 +11,10 @@ class URL(Base):
 
     url = Column(String, unique=True, nullable=False)
 
-    created_at = Column(DateTime, default=datetime.now(UTC))
+    created_at = Column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(UTC),
+    )
 
     health_checks = relationship("HealthCheck", back_populates="url")
 
@@ -23,5 +26,8 @@ class HealthCheck(Base):
     status_code = Column(Integer)
     response_time_ms = Column(Integer)
     is_up = Column(Boolean)
-    checked_at = Column(DateTime, default=datetime.now(UTC))
+    checked_at = Column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(UTC),
+    )
     url = relationship("URL", back_populates="health_checks")
